@@ -1,0 +1,85 @@
+/**
+ * @file NoxFile Service index file. [index.js]
+ * @author idoleat <dppss92132@gmail.com>
+ * @copyright 2019-2020 nooxy. All Rights Reserved.
+ */
+
+'use strict';
+
+/**
+ * @module NoxFile
+ */
+
+const Initializer = require('./initializer');
+const Manifest = require('./manifest.json');
+
+function NoxFile(noxerve_agent,_preloader_parameters){
+     this._noxerve_agent = noxerve_agent;
+     this._preloader_parameters = preloader_parameters;
+}
+
+NoxFile.prototype.start = function() {
+    console.log(Manifest.service_display_name + ' service(version ' + Manifest.service_version + ') worker started.');
+    console.log(Manifest.service_description);
+}
+
+NoxFile.prototype.close = function() {
+
+}
+
+// version
+NoxFile.prototype.version = function() {
+
+}
+
+// cd
+NoxFile.prototype.cd = function() {
+
+}
+
+// ls
+NoxFile.prototype.ls = function() {
+
+}
+
+// Write data to a file
+NoxFile.prototype.write = function() {
+
+}
+
+// Read data to a file
+NoxFile.prototype.read = function() {
+
+}
+
+// current working directory
+NoxFile.prototype.cwd = function() {
+
+}
+
+// make directory
+NoxFile.prototype.mkdir = function() {
+
+}
+
+// remove directory
+NoxFile.prototype.rmdir = function() {
+
+}
+
+// remove file
+NoxFile.prototype.rm = function() {
+
+}
+
+// copy file
+NoxFile.prototype.cp = function() {
+
+}
+
+// get the status of the service
+NoxFile.prototype.status = function() {
+
+}
+
+module.exports = NoxFile;

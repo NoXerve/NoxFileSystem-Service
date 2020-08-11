@@ -1,0 +1,11 @@
+{
+  "service_name": "noxfile",
+
+  "service_display_name": "NoxFile",
+
+  "service_id": "org.noxerve.noxfile",
+
+  "service_description": "NoxFile provides a file system as a service. Using [Ceph](ceph.io).",
+
+  "service_version": "0.0.0"
+}
