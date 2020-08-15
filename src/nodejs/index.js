@@ -13,9 +13,10 @@
 const Initializer = require('./initializer');
 const Manifest = require('./manifest.json');
 
-function NoxFile(noxerve_agent,_preloader_parameters){
+function NoxFile(noxerve_agent, preloader_parameters){
      this._noxerve_agent = noxerve_agent;
      this._preloader_parameters = preloader_parameters;
+     this._deploy = function() {};
 }
 
 NoxFile.prototype.start = function() {
@@ -81,5 +82,10 @@ NoxFile.prototype.cp = function() {
 NoxFile.prototype.status = function() {
 
 }
+
+/*
+NoxFile._deploy.prototype.exec_command() = function(command) {
+
+}*/
 
 module.exports = NoxFile;
