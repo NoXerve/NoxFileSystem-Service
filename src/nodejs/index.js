@@ -37,7 +37,6 @@ NoxFile.prototype.start = function(finish_start) {
         }
     };
 
-    // Initialize.
     const initailize_noxerve_agent_worker = () => {
       Initializer.initailizeNoXerveAgentWorker(this._noxerve_agent, this._preloader_parameters, (error) => {
         if_error_close_preloader(error, ()=> {
@@ -46,6 +45,7 @@ NoxFile.prototype.start = function(finish_start) {
       });
     };
 
+    // Initialize.
     if(Initializer.isMyWorkerFilesInitailized()) {
         this._noxerve_agent.start((error) => {
             if_error_close_preloader(error, ()=> {

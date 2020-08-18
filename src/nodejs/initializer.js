@@ -18,7 +18,7 @@ module.exports.isMyWorkerFilesInitailized = function() {
 
 module.exports.initailizeMyWorkerFiles = function(noxerve_agent, preloader_parameters, callback) {
   const worker_peers_settings_initialize = (next) => {
-    if (!FS.existsSync(Constants.noxfile_worker_peers_settings_path)) {
+    if ( !module.exports.isMyWorkerFilesInitailized()) {
       const readline = require("readline");
       const rl = readline.createInterface({
         input: process.stdin,
