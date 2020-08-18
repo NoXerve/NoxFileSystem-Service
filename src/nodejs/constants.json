@@ -1,0 +1,6 @@
+{
+  "noxfile_my_worker_initailized_locker_path": "./initailized.lock",
+  "noxfile_worker_peers_settings_path": "./settings/worker_peers_settings.json",
+  "noxfile_my_worker_settings_path": "./settings/my_worker_settings.json",
+  "noxfile_static_global_random_seed_4096bytes_path": "./static_global_random_seed.bin"
+}

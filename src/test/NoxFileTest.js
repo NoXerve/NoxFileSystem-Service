@@ -8,6 +8,7 @@
 'use strict';
 
 const fs = require('fs');
+const preloader_parameters = require('./settings/PreLoadParameters');
 
 /// only for prototpype test
 let NoXerveAgent = new(require('../../../NoXerve/src/noxerve_agent/nodejs/index'))({
@@ -19,5 +20,9 @@ let NoXerveAgent = new(require('../../../NoXerve/src/noxerve_agent/nodejs/index'
 });
 ///
 
-let worker1 = new(require('../nodejs/index'))(NoXerveAgent, {});
-worker1.start();
+const finish_ServiceStart = (exit_code) => {
+    console.log('Finish ServiceStart with code ' + exit_code + '. (0 means you are good :D)');
+}
+
+let worker1 = new(require('../nodejs/index'))(NoXerveAgent, preloader_parameters);
+worker1.start(finish_ServiceStart);
