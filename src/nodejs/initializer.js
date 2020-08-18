@@ -86,7 +86,7 @@ module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_
   });
   noxerve_agent.Worker.on('worker-peer-join', (new_worker_peer_id, new_worker_peer_interfaces_connect_settings, new_worker_peer_detail, next) => {
     console.log('Worker peer joined.', new_worker_peer_id, new_worker_peer_interfaces_connect_settings, new_worker_peer_detail);
-    FS.readFile(Constants.noxservicesystem_worker_peers_settings_path, (error, worker_peers_settings_string) => {
+    FS.readFile(Constants.noxfile_worker_peers_settings_path, (error, worker_peers_settings_string) => {
       if (error) next(error, () => {});
       else {
         let worker_peers_settings = JSON.parse(worker_peers_settings_string);
@@ -94,7 +94,7 @@ module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_
           interfaces_connect_settings: new_worker_peer_interfaces_connect_settings,
           detail: new_worker_peer_detail
         };
-        FS.writeFile(Constants.noxservicesystem_worker_peers_settings_path, JSON.stringify(worker_peers_settings, null, 2), () => {
+        FS.writeFile(Constants.noxfile_worker_peers_settings_path, JSON.stringify(worker_peers_settings, null, 2), () => {
           if (error) next(error, () => {});
           else {
             const on_cancel = (next_of_cancel) => {
@@ -110,7 +110,7 @@ module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_
 
   noxerve_agent.Worker.on('worker-peer-update', (remote_worker_peer_id, remote_worker_peer_interfaces_connect_settings, remote_worker_peer_detail, next) => {
     console.log('Worker peer updated.', remote_worker_peer_id, remote_worker_peer_interfaces_connect_settings, remote_worker_peer_detail);
-    FS.readFile(Constants.noxservicesystem_worker_peers_settings_path, (error, worker_peers_settings_string) => {
+    FS.readFile(Constants.noxfile_worker_peers_settings_path, (error, worker_peers_settings_string) => {
       if (error) next(error, () => {});
       else {
         let worker_peers_settings = JSON.parse(worker_peers_settings_string);
@@ -118,7 +118,7 @@ module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_
           interfaces_connect_settings: remote_worker_peer_interfaces_connect_settings,
           detail: remote_worker_peer_detail
         };
-        FS.writeFile(Constants.noxservicesystem_worker_peers_settings_path, JSON.stringify(worker_peers_settings, null, 2), () => {
+        FS.writeFile(Constants.noxfile_worker_peers_settings_path, JSON.stringify(worker_peers_settings, null, 2), () => {
           if (error) next(error, () => {});
           else {
             const on_cancel = (next_of_cancel) => {
@@ -134,12 +134,12 @@ module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_
 
   noxerve_agent.Worker.on('worker-peer-leave', (remote_worker_peer_id, next) => {
     console.log('Worker peer leaved.', remote_worker_peer_id);
-    FS.readFile(Constants.noxservicesystem_worker_peers_settings_path, (error, worker_peers_settings_string) => {
+    FS.readFile(Constants.noxfile_worker_peers_settings_path, (error, worker_peers_settings_string) => {
       if (error) next(error, () => {});
       else {
         let worker_peers_settings = JSON.parse(worker_peers_settings_string);
         delete worker_peers_settings[remote_worker_peer_id];
-        FS.writeFile(Constants.noxservicesystem_worker_peers_settings_path, JSON.stringify(worker_peers_settings, null, 2), () => {
+        FS.writeFile(Constants.noxfile_worker_peers_settings_path, JSON.stringify(worker_peers_settings, null, 2), () => {
           if (error) next(error, () => {});
           else {
             const on_cancel = (next_of_cancel) => {
