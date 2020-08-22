@@ -51,7 +51,10 @@ module.exports.initailizeMyWorkerFiles = function(noxerve_agent, preloader_param
           console.log('Created worker peers settings file at "' + Constants.noxfile_worker_peers_settings_path + '".');
           next(false);
         } else if (answer === '2') {
-
+            // setup my_worker_settings
+            // connect to a worker
+            // get worker_peers_settings from that worker
+            //
         }
       });
     } else {
@@ -69,7 +72,7 @@ module.exports.initailizeMyWorkerFiles = function(noxerve_agent, preloader_param
 }
 
 module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_parameters, callback) {
-  noxerve_agent.Worker.on('worker-peer-authentication', (worker_id, worker_authenticity_information, is_valid) => {
+    noxerve_agent.Worker.on('worker-peer-authentication', (worker_id, worker_authenticity_information, is_valid) => {
     // if(worker_id === 0) {
     //   // [Flag]
     //   is_valid(false);
@@ -78,12 +81,14 @@ module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_
     //
     // }
 
-    if (worker_authenticity_information.worker_authentication_token === preloader_parameters.settings.worker_authentication_token) {
-      is_valid(true);
-    } else {
-      is_valid(false);
-    }
-  });
+        if (worker_authenticity_information.worker_authentication_token === preloader_parameters.settings.worker_authentication_token) {
+            is_valid(true);
+            } else {
+                is_valid(false);
+            }
+    });
+
+  // register to events that will add/update/delete workers in worker_peers_settings, which is a full list of know worker peers.
   noxerve_agent.Worker.on('worker-peer-join', (new_worker_peer_id, new_worker_peer_interfaces_connect_settings, new_worker_peer_detail, next) => {
     console.log('Worker peer joined.', new_worker_peer_id, new_worker_peer_interfaces_connect_settings, new_worker_peer_detail);
     FS.readFile(Constants.noxfile_worker_peers_settings_path, (error, worker_peers_settings_string) => {
@@ -153,4 +158,49 @@ module.exports.initailizeNoXerveAgentWorker = function(noxerve_agent, preloader_
     });
   });
   // temporary skip GlobalRamdonSeed part
+  const worker_peers_settings = JSON.parse(FS.readFileSync(Constants.noxfile_worker_peers_settings_path));
+  const static_global_random_seed_4096bytes = FS.readFileSync(Constants.noxfile_static_global_random_seed_4096bytes_path);
+  const preloader_parameters_settings_interfaces = preloader_parameters.settings.interfaces;
+  const preloader_parameters_settings_interfaces_connect_settings = preloader_parameters.settings.interfaces_connect_settings;
+  const my_worker_settings = JSON.parse(FS.readFileSync(Constants.noxfile_my_worker_settings_path));
+  const my_worker_files_interfaces = my_worker_settings.interfaces;
+  const my_worker_files_interfaces_connect_settings = my_worker_settings.interfaces_connect_settings;
+  const is_interfaces_changed = !(JSON.stringify(preloader_parameters_settings_interfaces) === JSON.stringify(my_worker_files_interfaces));
+  const is_interfaces_connect_settings_changed = !(JSON.stringify(preloader_parameters_settings_interfaces_connect_settings) === JSON.stringify(my_worker_files_interfaces_connect_settings));
+/*
+  noxerve_agent.Worker.importStaticGlobalRandomSeed(static_global_random_seed_4096bytes, (error) => {
+    if (error) callback(error);
+    else {
+      noxerve_agent.Worker.importMyWorkerAuthenticityData(parseInt(my_worker_settings.worker_id), {
+        worker_authentication_token: preloader_parameters.settings.worker_authentication_token
+      }, (error) => {
+        if (error) callback(error);
+        else {
+          noxerve_agent.Worker.importWorkerPeersSettings(worker_peers_settings, (error) => {
+            if (error) callback(error);
+            else {
+              if (is_interfaces_changed && !is_interfaces_connect_settings_changed) {
+                callback(new Error('Interfaces settings changed. But interface connect settings are not changed.'));
+              } else if (is_interfaces_connect_settings_changed) {
+                noxerve_agent.Worker.updateMe(preloader_parameters_settings_interfaces_connect_settings, null, (error) => {
+                  if (error) callback(error);
+                  else {
+                    FS.writeFileSync(Constants.noxfile_my_worker_settings_path, JSON.stringify({
+                      worker_id: my_worker_settings.worker_id,
+                      interfaces: preloader_parameters.settings.interfaces,
+                      interfaces_connect_settings: preloader_parameters.settings.interfaces_connect_settings,
+                    }, null, 2));
+                  }
+                });
+              } else {
+                // Finished
+                callback(error);
+              }
+            }
+          });
+        }
+      });
+    }
+  });
+  */
 }
