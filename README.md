@@ -3,13 +3,14 @@
 A foundational servcie which serves other services like a file system.
 
 ## Functionality
-Acting like a normal File System. ([ref](https://en.wikipedia.org/wiki/File_system))
+Acting like a normal File System.
+> A file is a group of data. The structure and logic rules used to manage the groups of data and their names is called a "file system".
+-- [[ref]](https://en.wikipedia.org/wiki/File_system)
 * do
 * something
 
 
 ## Architecture
-* A file is a group of data. The structure and logic rules used to manage the groups of data and their names is called a "file system".
 * 3 layers of fs
   - logical file system: provides file access, directory operations, security and protection
   - virtual file system: allows support for multiple concurrent instances of physical file systems, each of which is called a file system implementation

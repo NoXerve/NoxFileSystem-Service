@@ -12,10 +12,10 @@
    process.exit();
  });
 
-const Node = new(require('../../../../NoXerve/src/noxerve_agent/nodejs/node'))();
-const NSDT = new(require('../../../../NoXerve/src/noxerve_agent/nodejs/nsdt'))();
-const Worker = new(require('../../../../NoXerve/src/noxerve_agent/nodejs/worker'))();
-const CommandExecutor = new(require('../JsTests/CommandTest.js'))();
+const Node = new(require('/home/NoXerve/src/noxerve_agent/nodejs/node'))();
+const NSDT = new(require('/home/NoXerve/src/noxerve_agent/nodejs/nsdt'))();
+const Worker = new(require('/home/NoXerve/src/noxerve_agent/nodejs/worker'))();
+const CommandExecutor = new(require('/home/NoxFile-Service/test/JsTests/CommandTest.js'))();
 
 let my_worker_id = 0;
 let command = '';
