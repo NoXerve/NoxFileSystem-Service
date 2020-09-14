@@ -161,7 +161,7 @@ initialize_interfaces(() => {
 
       const callable_struture = NSDT.createCallableStructure({exec: ()=> {
         console.log('[NSDT module] NSDT exec called.');
-        CommandExecutor.exec('ls');
+        CommandExecutor.exec(command);
       }});
 
       callable_struture.on('close', ()=> {

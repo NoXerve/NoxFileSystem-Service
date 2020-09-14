@@ -174,34 +174,12 @@ initialize_interfaces(()=> {
               worker_socket.on('close', () => {
                 console.log('[Worker ' + my_worker_id + '] WorkerSocket from createWorkerSocket closed.');
               });
-              /*
-              worker_socket.define('func1', (service_function_parameter, return_data, yield_data) => {
-                console.log('[Worker ' + my_worker_id + '] WorkerSocket function on createWorkerSocket called.');
-                const callable_struture = NSDT.createCallableStructure({haha: (callback)=> {
-                  console.log('[NSDT module] NSDT haha called.');
-                  const callable_struture_2 = NSDT.createCallableStructure({nah: ()=> {}});
-                  callback(callable_struture, callable_struture_2, 321);
-                }});
 
-                callable_struture.on('close', ()=> {
-                  console.log('[NSDT module] NSDT haha closed.');
-                });
-
-                yield_data(callable_struture);
-
-                yield_data(123);
-                yield_data({foo: 123}, (acknowledge_information)=> {
-                  console.log('[Worker module] WorkerSocket function on createWorkerSocket. acknowledge_information', acknowledge_information);
-                  yield_data(Buffer.from([5, 4, 3, 2, 1]));
-                  return_data('haha');
-                });
-              });
-              */
               worker_socket.startYielding('Command', 'yield from createWorkerSocket', (error, yielding_start_parameter, finish_yield, yield_data) => {
                 if (error) console.log('[Worker ' + my_worker_id + '] "Command" Yield error.', error);
                 console.log('[Worker ' + my_worker_id + '] "Command" yielding_start_parameter value: ', yielding_start_parameter);
 
-                finish_yield('//This is a command//');
+                finish_yield('neofetch');
               });
               // what's the foo for?
               worker_socket.call('exec', {foo: 'call from createWorkerSocket'}, (err, data, eof)=> {
